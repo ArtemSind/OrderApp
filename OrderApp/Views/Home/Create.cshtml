@@ -1,5 +1,33 @@
-﻿@
-   
-*@
+﻿@model OrderApp.Models.Order
 @{
+    ViewBag.Title = "Добавление заказа";
 }
+<form asp-action="create" asp-controller="home">
+    <div class="form-group">
+        <label asp-for="FromCity" class="control-label">Город отправителя</label>
+        <input type="text" asp-for="FromCity" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="FromAdress" class="control-label">Адрес отправителя</label>
+        <input type="text" asp-for="FromAdress" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ToCity" class="control-label">Город получателя</label>
+        <input type="text" asp-for="ToCity" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ToAdress" class="control-label">Адрес получателя</label>
+        <input type="text" asp-for="ToAdress" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Weight" class="control-label">Вес груза</label>
+        <input type="number" asp-for="Weight" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Date" class="control-label">Дата забора груза</label>
+        <input type="date" asp-for="Date" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Отправить" class="btn btn-default" />
+    </div>
+</form>

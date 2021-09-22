@@ -1,8 +1,13 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<OrderApp.Models.Order>
+@{
+    ViewBag.Title = "Все заказы";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<a asp-action="Create">Добавить пользователя</a>
+<table class="table">
+    <tr><td>Имя</td><td>Возраст</td></tr>
+    @foreach (var item in Model)
+    {
+        <tr><td>@item.FromCity</td><td>@item.FromAdress</td><td>@item.ToCity</td><td>@item.ToAdress</td><td>@item.Weight</td><td>@item.Date</td></tr>
+            }
+    </table>

@@ -7,11 +7,12 @@ namespace OrderApp.Models
 {
     public class Order
     {
+        public int Id { get; set; }
         public string FromCity { get; set; }
         public string FromAdress { get; set; }
         public string ToCity { get; set; }
         public string ToAdress { get; set; }
         public double Weight { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
     }
 }

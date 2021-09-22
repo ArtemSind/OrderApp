@@ -3,9 +3,9 @@
     ViewBag.Title = "Все заказы";
 }
 
-<a asp-action="Create">Добавить пользователя</a>
+<a asp-action="Create">Добавить заказ</a>
 <table class="table">
-    <tr><td>Имя</td><td>Возраст</td></tr>
+    <tr><td>Город отправителя</td><td>Адрес отправителя</td><td>Город получателя</td><td>Адрес получателя</td><td>Вес груза</td><td>Дата забора груза</td></tr>
     @foreach (var item in Model)
     {
         <tr><td>@item.FromCity</td><td>@item.FromAdress</td><td>@item.ToCity</td><td>@item.ToAdress</td><td>@item.Weight</td><td>@item.Date</td></tr>

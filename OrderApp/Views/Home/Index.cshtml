@@ -5,9 +5,12 @@
 
 <a asp-action="Create">Добавить заказ</a>
 <table class="table">
-    <tr><td>Город отправителя</td><td>Адрес отправителя</td><td>Город получателя</td><td>Адрес получателя</td><td>Вес груза</td><td>Дата забора груза</td></tr>
+    <tr><td>№ заказа</td><td>Город отправителя</td><td>Адрес отправителя</td><td>Город получателя</td><td>Адрес получателя</td><td>Вес груза, кг</td><td>Дата забора груза</td></tr>
     @foreach (var item in Model)
     {
-        <tr><td>@item.FromCity</td><td>@item.FromAdress</td><td>@item.ToCity</td><td>@item.ToAdress</td><td>@item.Weight</td><td>@item.Date</td></tr>
-            }
-    </table>
+        <tr><td>@item.Id</td><td>@item.FromCity</td><td>@item.FromAdress</td><td>@item.ToCity</td><td>@item.ToAdress</td><td>@item.Weight</td><td>@item.Date</td>
+        <td>|
+            <a asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id">Удалить</a>
+        </td></tr>
+    }
+</table>

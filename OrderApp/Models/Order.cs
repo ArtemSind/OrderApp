@@ -13,6 +13,6 @@ namespace OrderApp.Models
         public string ToCity { get; set; }
         public string ToAdress { get; set; }
         public double Weight { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace OrderApp
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<RepositoryContext>(options =>
+            services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(connection));
             services.AddControllersWithViews();
         }

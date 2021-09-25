@@ -6,13 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OrderApp.Models
 {
-    public class RepositoryContext : DbContext
+    public class ApplicationContext : DbContext
     {
         public DbSet<Order> Orders { get; set; }
-        public RepositoryContext(DbContextOptions options) : base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
+            Database.EnsureCreated();
         }
-
-
     }
 }

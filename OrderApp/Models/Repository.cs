@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OrderApp.Models;
 
 namespace OrderApp.Models
 {
@@ -19,60 +16,32 @@ namespace OrderApp.Models
 
     public class OrderRepository : IRepository<Order>
     {
-        private RepositoryContext db;
+        private ApplicationContext db;
 
-        public OrderRepository(RepositoryContext context)
+        public OrderRepository(ApplicationContext context)
         {
             this.db = context;
         }
-        
-        
-
-        public async Task<IActionResult> Index()
-        {
-            return View(await db.Orders.ToListAsync());
-        }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(Order order)
+        public void Create(Order order)
         {
             db.Orders.Add(order);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id)
+        public void Delete(int id)
         {
-            if (id != null)
-            {
-                Order order = await db.Orders.FirstOrDefaultAsync(p => p.Id == id);
-                if (order != null)
-                    return View(order);
-            }
-            return NotFound();
+            Order order = db.Orders.Find(id);
+            if (order != null)
+                db.Orders.Remove(order);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
+        public Order Get(int id)
         {
-            if (id != null)
-            {
-                Order order = await db.Orders.FirstOrDefaultAsync(p => p.Id == id);
-                if (order != null)
-                {
-                    db.Orders.Remove(order);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-            }
-            return NotFound();
+            return db.Orders.Find(id);
+        }
+
+        public IEnumerable<Order> GetAll()
+        {
+            return db.Orders;
         }
     }
 }

@@ -3,20 +3,21 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OrderApp.Models;
+using OrderApp.Repository;
 
 namespace OrderApp.Controllers
 {
     public class HomeController : Controller
     {
-        private ApplicationContext db;
-        public HomeController(ApplicationContext context)
+        private IRepository or;
+        public HomeController(IRepository context)
         {
-            db = context;
+            or = context;
         }
 
-        public async Task<IActionResult> Index()
+        public  IActionResult Index()
         {
-            return View(await db.Orders.ToListAsync());
+            return View(or.GetAll().ToList());
         }
 
         public IActionResult Create()
@@ -25,20 +26,19 @@ namespace OrderApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Order order)
+        public  IActionResult Create(Order order)
         {
-            db.Orders.Add(order);
-            await db.SaveChangesAsync();
+            or.Create(order);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id)
+        public IActionResult ConfirmDelete(int? id)
         {
             if (id != null)
             {
-                Order order = await db.Orders.FirstOrDefaultAsync(p => p.Id == id);
+                Order order = or.GetAll().FirstOrDefault(p => p.Id == id); 
                 if (order != null)
                     return View(order);
             }
@@ -46,15 +46,14 @@ namespace OrderApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id != null)
             {
-                Order order = await db.Orders.FirstOrDefaultAsync(p => p.Id == id);
+                Order order = or.GetAll().FirstOrDefault(p => p.Id == id); 
                 if (order != null)
                 {
-                    db.Orders.Remove(order);
-                    await db.SaveChangesAsync();
+                    or.Delete(id.Value);
                     return RedirectToAction("Index");
                 }
             }

@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace OrderApp.Repository
 {
-    interface IRepository<T> where T : class
+    public interface IRepository
     {
-        IEnumerable<T> GetAll();
-        T Get(int id);
-        void Create(T item);
+        IEnumerable<Order> GetAll();
+        Order Get(int id);
+        void Create(Order item);
         
         void Delete(int id);
     }
-    public class OrderRepository : IRepository<Order>
+    public class OrderRepository : IRepository
     {
         private ApplicationContext db;
 
@@ -38,6 +38,7 @@ namespace OrderApp.Repository
         public void Create(Order order)
         {
             db.Orders.Add(order);
+            db.SaveChanges();
         }
 
         
@@ -47,6 +48,7 @@ namespace OrderApp.Repository
             Order order = db.Orders.Find(id);
             if (order != null)
                 db.Orders.Remove(order);
+            db.SaveChanges();
         }
     }
 }

@@ -5,9 +5,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OrderApp.Models;
+using OrderApp.Repository;
 
 namespace OrderApp
 {
+    public static class StartupExtensions
+    {
+        public static void ConfigureOrderRepository(this IServiceCollection services)
+        {
+            services.AddScoped<IRepository, OrderRepository>();
+        }
+    }
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -23,8 +31,12 @@ namespace OrderApp
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(connection));
+            services.AddTransient<IRepository, OrderRepository>();
             services.AddControllersWithViews();
+            
         }
+
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -53,5 +65,6 @@ namespace OrderApp
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+        
     }
 }

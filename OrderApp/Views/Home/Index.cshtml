@@ -10,7 +10,8 @@
     {
         <tr><td>@item.Id</td><td>@item.FromCity</td><td>@item.FromAdress</td><td>@item.ToCity</td><td>@item.ToAdress</td><td>@item.Weight</td><td>@item.Date</td>
         <td>|
-            <a asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id">Удалить</a>
+            <a asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id"
+               onclick="return confirm('Вы уверены, что хотите удалить заказ : @item.Id')">Удалить</a>
         </td></tr>
     }
 </table>

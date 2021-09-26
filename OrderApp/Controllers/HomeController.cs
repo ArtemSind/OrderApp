@@ -33,20 +33,9 @@ namespace OrderApp.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        [ActionName("Delete")]
-        public IActionResult ConfirmDelete(int? id)
-        {
-            if (id != null)
-            {
-                Order order = rw.Order.GetAll().FirstOrDefault(p => p.Id == id); 
-                if (order != null)
-                    return View(order);
-            }
-            return NotFound();
-        }
+        
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Delete(int? id)
         {
             if (id != null)

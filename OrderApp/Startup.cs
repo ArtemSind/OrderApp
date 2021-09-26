@@ -6,16 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OrderApp.Models;
 using OrderApp.Repository;
+using OrderApp.Extensions;
 
 namespace OrderApp
 {
-    public static class StartupExtensions
-    {
-        public static void ConfigureOrderRepository(this IServiceCollection services)
-        {
-            services.AddScoped<IRepository, OrderRepository>();
-        }
-    }
+    
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -29,9 +24,12 @@ namespace OrderApp
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationContext>(options =>
+            services.AddDbContext<RepositoryContext>(options =>
                 options.UseSqlServer(connection));
-            services.AddTransient<IRepository, OrderRepository>();
+            services.ConfigureRepositoryWrapper();
+
+
+
             services.AddControllersWithViews();
             
         }

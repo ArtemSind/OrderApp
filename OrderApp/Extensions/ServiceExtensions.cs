@@ -14,5 +14,10 @@ namespace OrderApp.Extensions
         {
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
+
+        public static void ConfigureOrderRepository(this IServiceCollection services)
+        {
+            services.AddScoped<IOrderRepository, OrderRepository>();
+        }
     }
 }

@@ -12,21 +12,20 @@ namespace OrderApp.Repository
         private RepositoryContext repositoryContext;
         private IOrderRepository order;
         
+
             
         public IOrderRepository Order
         {
             get
             {
-                if (order == null)
-                    order = new OrderRepository(repositoryContext);
-
                 return order;
             }
         }
 
-        public RepositoryWrapper(RepositoryContext repositoryContext)
+        public RepositoryWrapper(RepositoryContext repositoryContext, IOrderRepository orderRepository)
         {
             this.repositoryContext = repositoryContext;
+            order = orderRepository;
         }
         public void Save()
         {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using OrderApp.Contracts;
+using OrderApp.Interfaces;
 using OrderApp.Models;
 using System;
 using System.Collections.Generic;

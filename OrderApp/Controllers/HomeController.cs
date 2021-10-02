@@ -4,21 +4,22 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OrderApp.Models;
 using OrderApp.Repository;
-using OrderApp.Contracts;
+using OrderApp.Interfaces;
+using OrderApp.BLL.Interfaces;
 
 namespace OrderApp.Controllers
 {
     public class HomeController : Controller
     {
-        private IRepositoryWrapper rw;
-        public HomeController(IRepositoryWrapper repositoryWrapper)
+        IOrderService orderService;
+        public HomeController(IOrderService serv)
         {
-            rw = repositoryWrapper;
+            orderService = serv;
         }
 
         public  IActionResult Index()
         {
-            return View(rw.Order.GetAll().ToList());
+            return View(orderService.GetOrders());
         }
 
         public IActionResult Create()
@@ -29,6 +30,7 @@ namespace OrderApp.Controllers
         [HttpPost]
         public  IActionResult Create(Order order)
         {
+            orderService.MakeOrder()
             rw.Order.Create(order);
             return RedirectToAction("Index");
         }
@@ -36,18 +38,11 @@ namespace OrderApp.Controllers
         
 
         [HttpGet]
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            if (id != null)
-            {
-                Order order = rw.Order.GetAll().FirstOrDefault(p => p.Id == id); 
-                if (order != null)
-                {
-                    rw.Order.Delete(id.Value);
-                    return RedirectToAction("Index");
-                }
-            }
-            return NotFound();
+            rw.Order.Delete(id);
+            return RedirectToAction("Index");
+           
         }
     }
 }

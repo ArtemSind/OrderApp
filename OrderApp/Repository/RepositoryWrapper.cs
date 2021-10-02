@@ -1,4 +1,4 @@
-﻿using OrderApp.Contracts;
+﻿using OrderApp.Interfaces;
 using OrderApp.Models;
 using System;
 using System.Collections.Generic;
@@ -30,6 +30,10 @@ namespace OrderApp.Repository
         public void Save()
         {
             repositoryContext.SaveChanges();
+        }
+        public void Dispose()
+        {
+            repositoryContext.Dispose();
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OrderApp.Contracts
+namespace OrderApp.Interfaces
 {
     public interface IRepositoryBase<T>
     {

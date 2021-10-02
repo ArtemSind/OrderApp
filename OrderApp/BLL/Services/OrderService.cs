@@ -56,7 +56,8 @@ namespace OrderApp.BLL.Services
                 ToCity = orderDto.ToCity,
                 ToAdress = orderDto.ToAdress,
                 Weight = orderDto.Weight,
-                Date = orderDto.Date
+                Date = orderDto.Date,
+                FromCity = orderDto.FromCity
             };
             Database.Order.Create(order);
             Database.Save();

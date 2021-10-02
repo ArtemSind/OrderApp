@@ -28,7 +28,7 @@ namespace OrderApp
                 options.UseSqlServer(connection));
             services.ConfigureRepositoryWrapper();
             services.ConfigureOrderRepository();
-
+            services.ConfigureOrderService();
 
             services.AddControllersWithViews();
             
